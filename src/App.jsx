@@ -7,11 +7,14 @@ export default function App() {
 
   const handlePredict = async (formData) => {
     try {
-      const response = await fetch("http://localhost:5000/predict", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://rainfall-backend.onrender.com/predict",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
 
       const data = await response.json();
       setResult(data.Rainfall);
@@ -31,6 +34,4 @@ export default function App() {
     </div>
   );
 }
-
-
 

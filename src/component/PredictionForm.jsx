@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+const API_URL = "https://rainfall-backend.onrender.com";
+
 export default function RainfallPrediction() {
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
@@ -10,7 +12,7 @@ export default function RainfallPrediction() {
 
   // Fetch states on load
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/states")
+    fetch(`${API_URL}/states`)
       .then(res => res.json())
       .then(data => setStates(data.states))
       .catch(err => console.error(err));
@@ -19,7 +21,7 @@ export default function RainfallPrediction() {
   // Fetch cities when state changes
   useEffect(() => {
     if (!selectedState) return;
-    fetch(`http://127.0.0.1:5000/cities/${selectedState}`)
+    fetch(`${API_URL}/cities/${selectedState}`)
       .then(res => res.json())
       .then(data => setCities(data.cities))
       .catch(err => console.error(err));
@@ -32,7 +34,7 @@ export default function RainfallPrediction() {
       return;
     }
 
-    fetch("http://127.0.0.1:5000/predict", {
+    fetch(`${API_URL}/predict`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ location: selectedCity, date })
